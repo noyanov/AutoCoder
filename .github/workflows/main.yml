@@ -73,6 +73,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
+          token: ${{ secrets.PERSONAL_TOKEN }}   # Use your PAT here
           labels: "autocoder-bot"
           author: autocoder-bot <actions@github.com>
           title: "#${{ github.event.issue.number }}"
