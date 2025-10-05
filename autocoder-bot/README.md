@@ -1,1 +1,3 @@
-Welcome to our production-ready application! This project utilizes HyperSkill AutoCoder and leverages OpenAI automation for GitHub. We are dedicated to implementing the latest technology to streamline our development process. With Python, we have automated various tasks on GitHub, making collaboration more efficient than ever before.
+## Welcome to AutoCoder project!
+
+This project utilizes OpenAI's automation to streamline code generation on GitHub. With the power of technology, we are able to automate the coding process and make development faster and more efficient. This README file provides an overview of the AutoCoder project and how it utilizes OpenAI for GitHub automation. Let's harness the power of Python and GitHub to boost productivity and code quality.
