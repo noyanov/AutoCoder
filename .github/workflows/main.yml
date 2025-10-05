@@ -3,7 +3,7 @@ name: AutoCoder Workflow
 # Trigger workflow on new, reopened, and labeled issues
 on:
   issues:
-    # types: [opened, reopened, labeled]
+    types: [opened, reopened, labeled]
   workflow_dispatch:
 
 permissions:
