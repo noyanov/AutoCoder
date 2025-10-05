@@ -1,14 +1,38 @@
-name: Say Hello Workflow
+name: Access Issue Information
 
-# Trigger the workflow on push events
-on: [push]
+# Trigger workflow on new issues opened and when a closed issue is reopened
+on:
+  issues:
+    types: [opened, reopened]
 
 jobs:
-  say_hello:
+  access_issue_info:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-      - name: Say hello
-        run: echo "Hello, world"
 
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Print Issue Information
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_ASSIGNEES: ${{ join(github.event.issue.assignees.*.login, ', ') }}
+          ISSUE_LABELS: ${{ join(github.event.issue.labels.*.name, ', ') }}
+        run: |
+          echo "Issue Number: ${ISSUE_NUMBER}"
+          echo "Issue Title: ${ISSUE_TITLE}"
+          echo "Issue Body: ${ISSUE_BODY}"
+          echo "Issue Assignees: ${ISSUE_ASSIGNEES}"
+          echo "Issue Labels: ${ISSUE_LABELS}"
+
+      - name: Fetch Issue via GitHub API
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ISSUE_RESPONSE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            https://api.github.com/repos/$REPO/issues/$ISSUE_NUMBER)
+          echo "Full Issue JSON Response: $ISSUE_RESPONSE"
