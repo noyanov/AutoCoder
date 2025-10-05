@@ -46,6 +46,12 @@ jobs:
           name: autocoder-artifact
           path: autocoder-bot/
 
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: autocoder-artifact
+          path: autocoder-artifact/
+
       - name: Display Generated Code using the ls command
         run: ls -R ./autocoder-artifact
 
