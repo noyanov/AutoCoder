@@ -9,7 +9,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
-
+  
 jobs:
   generate_code:
     # Run this job only if the issue has or was given the label 'autocoder-bot'
