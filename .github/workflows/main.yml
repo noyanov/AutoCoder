@@ -28,10 +28,8 @@ jobs:
       - name: Make script executable
         run: chmod +x ./scripts/script.sh
 
-    steps:
       - name: Generate Code with ChatGPT
         id: generate_code
-      env:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPOSITORY: ${{ github.repository }}
