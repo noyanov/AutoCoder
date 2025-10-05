@@ -4,6 +4,7 @@ name: AutoCoder Workflow
 on:
   issues:
     types: [opened, reopened, labeled]
+  workflow_dispatch:
 
 permissions:
   contents: write
