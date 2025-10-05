@@ -1,15 +1,14 @@
 name: Say Hello Workflow
 
 # Trigger the workflow on push events
-on:
-  push:
+on: [push]
 
 jobs:
   say_hello:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Greeting Message
+        uses: actions/checkout@v4
+      - name: Say hello
         run: echo "Hello, world"
+
