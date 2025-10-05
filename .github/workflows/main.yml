@@ -7,8 +7,10 @@ on:
 
 jobs:
   generate_code:
-    # Run this job only if the issue has the label 'autocoder-bot'
-    if: contains(join(github.event.issue.labels.*.name, ','), 'autocoder-bot')
+    # Run this job only if the issue has or was given the label 'autocoder-bot'
+    if: >
+      github.event.action == 'labeled' && github.event.label.name == 'autocoder-bot' ||
+      contains(join(github.event.issue.labels.*.name, ','), 'autocoder-bot')
     runs-on: ubuntu-latest
 
     steps:
