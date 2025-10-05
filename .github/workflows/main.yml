@@ -1,8 +1,9 @@
 name: AutoCoder Workflow
 
+# Trigger workflow on new, reopened, and labeled issues
 on:
   issues:
-    types: [opened, reopened]
+    types: [opened, reopened, labeled]
 
 jobs:
   generate_code:
