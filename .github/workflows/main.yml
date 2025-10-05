@@ -39,12 +39,7 @@ jobs:
           REPOSITORY: ${{ github.repository }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          echo $GITHUB_TOKEN
-          echo $REPOSITORY
-          echo $ISSUE_NUMBER
-          echo $OPENAI_API_KEY
-          ./scripts/script.sh $GITHUB_TOKEN $REPOSITORY $ISSUE_NUMBER $OPENAI_API_KEY
+        run: ./scripts/script.sh $GITHUB_TOKEN $REPOSITORY $ISSUE_NUMBER $OPENAI_API_KEY
         # run: |
         #   ./scripts/script.sh "${{ env.GITHUB_TOKEN }}" "${{ env.REPOSITORY }}" "${{ env.ISSUE_NUMBER }}" "${{ env.OPENAI_API_KEY }}"
 
