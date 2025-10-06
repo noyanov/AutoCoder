@@ -2,10 +2,8 @@ name: AutoCoder Workflow
 
 on:
   push:
-    branches-ignore:
-      - automation/*
-
-on:
+  branches-ignore:
+    - automation/*      
   issues:
     types: [opened, reopened, labeled]
   workflow_dispatch:
