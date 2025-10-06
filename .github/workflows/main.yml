@@ -1,8 +1,6 @@
 name: AutoCoder Workflow
 
 # Trigger workflow on new, reopened, and labeled issues
-name: CI
-
 on:
   issues:
     types: [opened, reopened, labeled]
