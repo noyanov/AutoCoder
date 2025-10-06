@@ -73,6 +73,7 @@ runs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
       with:
+        token: ${{ secrets.PERSONAL_TOKEN }}  # Try to use own token
         labels: "autocoder-bot"
         author: autocoder-bot <actions@github.com>
         title: "#${{ github.event.issue.number }}"
