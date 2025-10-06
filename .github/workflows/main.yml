@@ -69,7 +69,8 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}  # Try to use own token
           labels: "autocoder-bot"
-          author: autocoder-bot <actions@github.com>
+          committer: "autocoder-bot <actions@github.com>"
+          author: "autocoder-bot <actions@github.com>"
           title: "#${{ github.event.issue.number }}"
           branch: autocoder-branch-${{ github.event.issue.number }}
 
