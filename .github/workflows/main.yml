@@ -1,80 +1,6 @@
 name: AutoCoder Workflow
 
 # Trigger workflow on new, reopened, and labeled issues
-on:
-  issues:
-    types: [opened, reopened, labeled]
-  workflow_dispatch:
-
-permissions:
-  contents: write
-  pull-requests: write
-
-jobs:
-  build:
-    if: contains(github.event.issue.labels.*.name, 'autocoder-bot')
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Set up Environment
-        run: sudo apt-get update && sudo apt-get install -y jq curl
-
-      - name: Configure Git
-        run: |
-          git config --local user.name "autocoder-bot"
-          git config --local user.email "actions@github.com"
-
-      - name: make the script executable
-        run: chmod +x ./scripts/script.sh
-
-      - name: Generate Code with ChatGPT
-        id: generate_code
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPOSITORY: ${{ github.repository }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: ./scripts/script.sh $GITHUB_TOKEN $REPOSITORY $ISSUE_NUMBER $OPENAI_API_KEY
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: autocoder-artifact
-          path: autocoder-bot/
-
-      - name: Download Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: autocoder-artifact
-          path: autocoder-artifact/
-
-      - name: List Files
-        run: ls -R ./autocoder-artifact
-
-      - name: Commit Changes
-        run: |
-          git config --local user.name "autocoder-bot"
-          git config --local user.email "actions@github.com"
-          git add ./autocoder-artifact
-          git commit -m "Add generated code from ChatGPT"
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.PERSONAL_TOKEN }}  # Try to use own token
-          labels: "autocoder-bot"
-          author: autocoder-bot <actions@github.com>
-          title: "#${{ github.event.issue.number }}"
-          branch: autocoder-branch-${{ github.event.issue.number }}
-
-
-
-
-
-
 # on:
 #   issues:
 #     types: [opened, reopened, labeled]
@@ -85,25 +11,23 @@ jobs:
 #   pull-requests: write
 
 # jobs:
-#   generate_code:
-#     # Run this job only if the issue has or was given the label 'autocoder-bot'
+#   build:
 #     if: contains(github.event.issue.labels.*.name, 'autocoder-bot')
 #     runs-on: ubuntu-latest
 
-    
 #     steps:
 #       - name: Checkout Repository
 #         uses: actions/checkout@v3
+
+#       - name: Set up Environment
+#         run: sudo apt-get update && sudo apt-get install -y jq curl
 
 #       - name: Configure Git
 #         run: |
 #           git config --local user.name "autocoder-bot"
 #           git config --local user.email "actions@github.com"
 
-#       - name: Set up Environment
-#         run: sudo apt-get update && sudo apt-get install -y jq curl
-
-#       - name: Make script executable
+#       - name: make the script executable
 #         run: chmod +x ./scripts/script.sh
 
 #       - name: Generate Code with ChatGPT
@@ -114,8 +38,6 @@ jobs:
 #           ISSUE_NUMBER: ${{ github.event.issue.number }}
 #           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 #         run: ./scripts/script.sh $GITHUB_TOKEN $REPOSITORY $ISSUE_NUMBER $OPENAI_API_KEY
-#         # run: |
-#         #   ./scripts/script.sh "${{ env.GITHUB_TOKEN }}" "${{ env.REPOSITORY }}" "${{ env.ISSUE_NUMBER }}" "${{ env.OPENAI_API_KEY }}"
 
 #       - name: Upload Artifact
 #         uses: actions/upload-artifact@v4
@@ -129,7 +51,7 @@ jobs:
 #           name: autocoder-artifact
 #           path: autocoder-artifact/
 
-#       - name: Display Generated Code using the ls command
+#       - name: List Files
 #         run: ls -R ./autocoder-artifact
 
 #       - name: Commit Changes
@@ -147,4 +69,82 @@ jobs:
 #           author: autocoder-bot <actions@github.com>
 #           title: "#${{ github.event.issue.number }}"
 #           branch: autocoder-branch-${{ github.event.issue.number }}
+
+
+
+
+
+
+on:
+  issues:
+    types: [opened, reopened, labeled]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate_code:
+    # Run this job only if the issue has or was given the label 'autocoder-bot'
+    if: contains(github.event.issue.labels.*.name, 'autocoder-bot')
+    runs-on: ubuntu-latest
+
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Configure Git
+        run: |
+          git config --local user.name "autocoder-bot"
+          git config --local user.email "actions@github.com"
+
+      - name: Set up Environment
+        run: sudo apt-get update && sudo apt-get install -y jq curl
+
+      - name: Make script executable
+        run: chmod +x ./scripts/script.sh
+
+      - name: Generate Code with ChatGPT
+        id: generate_code
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: ./scripts/script.sh $GITHUB_TOKEN $REPOSITORY $ISSUE_NUMBER $OPENAI_API_KEY
+        # run: |
+        #   ./scripts/script.sh "${{ env.GITHUB_TOKEN }}" "${{ env.REPOSITORY }}" "${{ env.ISSUE_NUMBER }}" "${{ env.OPENAI_API_KEY }}"
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: autocoder-artifact
+          path: autocoder-bot/
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: autocoder-artifact
+          path: autocoder-artifact/
+
+      - name: Display Generated Code using the ls command
+        run: ls -R ./autocoder-artifact
+
+      - name: Commit Changes
+        run: |
+          git config --local user.name "autocoder-bot"
+          git config --local user.email "actions@github.com"
+          git add ./autocoder-artifact
+          git commit -m "Add generated code from ChatGPT"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN }}  # Try to use own token
+          labels: "autocoder-bot"
+          author: autocoder-bot <actions@github.com>
+          title: "#${{ github.event.issue.number }}"
+          branch: autocoder-branch-${{ github.event.issue.number }}
 
