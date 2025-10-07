@@ -1,1 +1,1 @@
-AutoCoder is a project on HyperSkill platform that utilizes OpenAI for automation on GitHub. This project showcases the power of technology and the ease of GitHub automation using Python.
+AutoCoder is a project on HyperSkill that showcases OpenAI automation for GitHub. This project utilizes advanced technology to automate various tasks. GitHub automation using Python is a key feature of this project.
