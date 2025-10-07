@@ -25,9 +25,12 @@ jobs:
 
   generate_code:
     # Run this job only if the issue has or was given the label 'autocoder-bot'
-    if: contains(github.event.issue.labels.*.name, 'autocoder-bot')
+    # if: contains(github.event.issue.labels.*.name, 'autocoder-bot')
     runs-on: ubuntu-latest
-    
+    permissions:
+      contents: write
+      pull-requests: write
+  
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -79,8 +82,8 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.PERSONAL_TOKEN }}  # Try to use own token
-          # token: ${{ secrets.GITHUB_TOKEN }}
+          # token: ${{ secrets.PERSONAL_TOKEN }}  # Try to use own token
+          token: ${{ secrets.GITHUB_TOKEN }}
           labels: "autocoder-bot"
           committer: "autocoder-bot <actions@github.com>"
           # author: "autocoder-bot <actions@github.com>"
