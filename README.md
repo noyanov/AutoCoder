@@ -1,32 +1,15 @@
 # AutoCoder
+Overview:
+Welcome to HyperSkill Master, the ultimate tool for aspiring coders to enhance their programming skills and reach mastery level across a wide range of programming languages and concepts. HyperSkill Master provides interactive lessons, challenges, and projects to help users learn and practice coding in a fun and engaging way.
 
-Objectives
-For this stage, perform the following tasks:
+Features:
+Interactive Lessons: Dive into our comprehensive lessons covering various topics from basic syntax to advanced algorithms.
+Coding Challenges: Test your skills with challenging coding exercises designed to push your abilities to the limit.
+Project Showcase: Participate in real-world projects where you can apply your newly acquired skills and showcase your talent.
+Progress Tracking: Track your progress and see how far you've come on your journey to becoming a coding master.
+Community Engagement: Connect with other learners, share your experiences, and collaborate on projects to accelerate your learning.
+Getting Started:
+To get started with HyperSkill Master, simply create an account on our platform and start exploring the different lessons, challenges, and projects available. Whether you're a beginner looking to learn the basics or an experienced coder aiming to master advanced concepts, HyperSkill Master has something for everyone.
 
-Initialize a new public GitHub repository that will contain the configuration files for GitHub Action and the scripts to interact with ChatGPT.
-
-Name the repository AutoCoder;
-
-Add a README.md file explaining the project;
-
-Create a .github/workflows/ directory that will hold the future workflow files;
-
-Create a new directory scripts/ that will hold the script files;
-
-Create a new empty file in the .github/workflows/ directory: main.yml;
-
-Create a new empty file in the scripts/ directory: script.sh;
-
-Your repo should have the following structure with no additional files:
-
-AutoCoder/                   # Root directory of the project
-    │
-    ├── .github/                 # Hidden directory for GitHub-specific files
-    │   └── workflows/           # Directory for GitHub Actions workflow files
-    │       └── main.yml         # Contains workflow file main.yml (empty for now)
-    │
-    ├── scripts/                 # Directory for custom scripts
-    │   └── script.sh            # Bash script to interact with ChatGPT (empty for now)
-    │
-    └── README.md                # Project description file
-
+Installation:
+No installation is required as HyperSkill Master is a web-based platform accessible through any modern web browser. Simply visit our website and start your coding journey today.

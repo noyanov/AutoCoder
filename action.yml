@@ -30,7 +30,7 @@ runs:
   using: 'composite'
   steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
     - name: Configure Git
       run: |
         git config --local user.name "autocoder-bot"
@@ -73,10 +73,7 @@ runs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
       with:
-        # token: ${{ secrets.PERSONAL_TOKEN }}  # Try to use own token
         labels: "autocoder-bot"
         author: autocoder-bot <actions@github.com>
         title: "#${{ github.event.issue.number }}"
         branch: autocoder-branch-${{ inputs.issue.number }}
-
-        

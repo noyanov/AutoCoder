@@ -1,55 +1,27 @@
+name: CI
 
-## Using the AutoCoder Composite Action
-
-To use this action, set up a `.github/workflows/main.yml` file in your repository like that below
-
-
-name: AutoCodeGen
 on:
   issues:
-    types: [labeled]
+    types: [opened, reopened, labeled]
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
-  generate_code:
+  build:
     if: contains(github.event.issue.labels.*.name, 'autocoder-bot')
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: AutoCoder Composite Action
-        uses: noyanov/autocoder-action@v1
+      - uses: actions/checkout@v2
+
+      - name: Generate Code with ChatGPT
+        id: generate_code
+        uses: noyanov/AutoCoderKarhal@v1
         with:
-          github_token: $\{{ secrets.GITHUB_TOKEN }}
-          openai_api_key: $\{{ secrets.OPENAI_API_KEY }}
-          issue_label: 'autocoder'
-
-
-
-# name: CI
-
-# on:
-#   issues:
-#     types: [opened, reopened, labeled]
-#   workflow_dispatch:
-
-# permissions:
-#   contents: write
-#   pull-requests: write
-
-# jobs:
-#   build:
-#     if: contains(github.event.issue.labels.*.name, 'autocoder-bot')
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - uses: actions/checkout@v2
-
-#       - name: Generate Code with ChatGPT
-#         id: generate_code
-#         uses: Karhal/AutoCoder@v1
-#         with:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#           REPOSITORY: ${{ github.repository }}
-#           ISSUE_NUMBER: ${{ github.event.issue.number }}
-#           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}          
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
