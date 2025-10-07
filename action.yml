@@ -30,7 +30,7 @@ runs:
   using: 'composite'
   steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Configure Git
       run: |
         git config --local user.name "autocoder-bot"

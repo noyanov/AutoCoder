@@ -15,11 +15,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Generate Code with ChatGPT
         id: generate_code
-        uses: noyanov/AutoCoderKarhal@v1
+        uses: noyanov/AutoCoder@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPOSITORY: ${{ github.repository }}
