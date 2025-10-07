@@ -10,11 +10,23 @@ permissions:
   pull-requests: write
 
 jobs:
+
+  label_issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - run: gh issue edit "$NUMBER" --add-label "$LABELS"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          LABELS: autocoder-bot
+
   generate_code:
     # Run this job only if the issue has or was given the label 'autocoder-bot'
     if: contains(github.event.issue.labels.*.name, 'autocoder-bot')
     runs-on: ubuntu-latest
-
     
     steps:
       - name: Checkout Repository
@@ -76,4 +88,11 @@ jobs:
           title: "#${{ github.event.issue.number }}"
           branch: autocoder-branch-${{ github.event.issue.number }}
 
-
+name: Label issues
+on:
+  issues:
+    types:
+      - reopened
+      - opened
+jobs:
+  
