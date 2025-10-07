@@ -120,8 +120,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           labels: "autocoder-bot"
           committer: "autocoder-bot <actions@github.com>"
-          # author: "autocoder-bot <actions@github.com>"
-          author: github-actions[bot] <actions@github.com>
+          author: "autocoder-bot <actions@github.com>"
           title: "#${{ github.event.issue.number }}"
           branch: autocoder-branch-${{ github.event.issue.number }}
   
