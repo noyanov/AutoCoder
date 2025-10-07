@@ -67,8 +67,8 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          # token: ${{ secrets.PERSONAL_TOKEN }}  # Try to use own token
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PERSONAL_TOKEN }}  # Try to use own token
+          # token: ${{ secrets.GITHUB_TOKEN }}
           labels: "autocoder-bot"
           committer: "autocoder-bot <actions@github.com>"
           # author: "autocoder-bot <actions@github.com>"
